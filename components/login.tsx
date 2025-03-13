@@ -41,6 +41,8 @@ export default function Page() {
       redirect: false,
     });
 
+    console.log(res)
+
     if (!res?.error) {
       router.push('/');
     } else {
@@ -74,6 +76,7 @@ export default function Page() {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   onChange={e => setEmail(e.target.value)}
@@ -87,7 +90,8 @@ export default function Page() {
                 <div className="relative">
                   <Input
                     id="password"
-                    autoComplete="password"
+                    name="password"
+                    autoComplete="current-password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
