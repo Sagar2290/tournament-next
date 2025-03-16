@@ -60,7 +60,15 @@ export default function Page() {
                   required
                 />
               </div>
-
+              <div className="grid gap-2">
+                <Label htmlFor="email">Organisation Name
+                </Label>
+                <Input
+                  id="organisationName"
+                  type="text"
+                  required
+                />
+              </div>
               <div className="grid gap-2">
                 <div className="flex items-center gap-4">
                   <div className="flex-1 relative">
@@ -114,7 +122,6 @@ export default function Page() {
                 <Input
                   id="phoneNumber"
                   type="text"
-                  placeholder="m@example.com"
                   required
                 />
               </div>
