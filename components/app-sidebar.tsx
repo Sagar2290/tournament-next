@@ -43,6 +43,10 @@ const data = {
       title: "Organisation",
       url: "/organisation",
     },
+    {
+      title: "Event Management",
+      url: "/event-management",
+    },
   ],
 }
 

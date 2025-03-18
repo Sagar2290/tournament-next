@@ -18,7 +18,7 @@ async function getData(): Promise<organisationData[]> {
   // Fetch data from your API here.
   return [
     {
-      id: "728ed52f",
+      id: 1,
       amount: 100,
       status: "pending",
       name: "pending",
@@ -27,7 +27,7 @@ async function getData(): Promise<organisationData[]> {
       city:"surat"
     },
     {
-      id: "728ed52f",
+      id: 2,
       amount: 100,
       status: "pending",
       email: "m@example.com",
@@ -36,7 +36,7 @@ async function getData(): Promise<organisationData[]> {
       city:"surat"
     },
     {
-      id: "728ed52f",
+      id: 3,
       amount: 100,
       status: "pending",
       email: "m@example.com",
@@ -46,7 +46,7 @@ async function getData(): Promise<organisationData[]> {
     },
 
     {
-      id: "728ed52f",
+      id: 4,
       amount: 100,
       status: "pending",
       email: "m@example.com",
@@ -55,7 +55,7 @@ async function getData(): Promise<organisationData[]> {
       city:"surat"
     },
     {
-      id: "728ed52f",
+      id: 5,
       amount: 100,
       status: "pending",
       email: "m@example.com",
@@ -64,7 +64,7 @@ async function getData(): Promise<organisationData[]> {
       city:"surat"
     },
     {
-      id: "728ed52f",
+      id: 6,
       amount: 100,
       status: "pending",
       email: "m@example.com",

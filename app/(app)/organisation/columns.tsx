@@ -14,9 +14,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useRouter } from 'next/navigation';
 
 export type organisationData = {
-    id: string
+    id: number
     amount: number
     status: "pending" | "processing" | "success" | "failed"
     email: string
@@ -24,6 +25,7 @@ export type organisationData = {
     name:string
     city:string
 }
+
 
 export const columns: ColumnDef<organisationData>[] = [
 
@@ -57,7 +59,7 @@ export const columns: ColumnDef<organisationData>[] = [
         header: "Action",
         cell: ({ row }) => {
             const userData = row.original
-
+            const router = useRouter()
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -68,7 +70,13 @@ export const columns: ColumnDef<organisationData>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(userData.id)}
+                            onClick={() => router.push(`/organisation/edit/${userData.id}`) }
+                            
+                        >
+                            Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            
                             
                         >
                             Login
