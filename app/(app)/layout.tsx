@@ -14,12 +14,21 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
-export default function Page({ children }: AppLayoutProps) {
+export default async function Page({ children }: AppLayoutProps) {
+
+  const session = await getServerSession();
+
+  if (!session?.user) {
+    return redirect('/login');
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
