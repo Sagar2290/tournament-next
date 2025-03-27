@@ -1,6 +1,5 @@
 import EventForm from "@/components/event-management/EventForm";
 
-
 export default async function Page() {
 
   return (

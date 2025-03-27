@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ColumnDef} from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -15,20 +15,26 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from 'next/navigation';
+import { formatDateFull } from "@/utiles/helper";
 
 export type organisationData = {
     id: number
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
+    createdAt: string
+    name: string
     email: string
-    firstName:string
-    name:string
-    city:string
+    phone: number
+    city: string
+    status: boolean
 }
 
 
 export const columns: ColumnDef<organisationData>[] = [
 
+    {
+        accessorKey: "createdAt",
+        header: "Date",
+        cell: ({ row }) => <div>{formatDateFull(row.getValue("createdAt"))}</div>,
+    },
     {
         accessorKey: "name",
         header: "Name",
@@ -38,21 +44,36 @@ export const columns: ColumnDef<organisationData>[] = [
     },
     {
         accessorKey: "email",
-        header:"Email",
+        header: "Email",
         cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
     },
     {
+        accessorKey: "phone",
+        header: "Phone",
+        cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
+    },
+    {
         accessorKey: "city",
-        header:"City",
+        header: "City",
         cell: ({ row }) => <div className="lowercase">{row.getValue("city")}</div>,
     },
     {
-        accessorKey: "status",
+        accessorKey: "isActive",
         header: "Status",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("status")}</div>
+            <div className="flex items-center gap-2">
+                {row.getValue("isActive") ? (
+                    <>
+                        <span className="h-4 w-4 text-green-500">Active</span>
+                    </>
+                ) : (
+                    <>
+                        <span className="h-4 w-4 text-red-500">Inactive</span>
+                    </>
+                )}
+            </div>
         ),
-    },  
+    },
     {
         id: "actions",
         enableHiding: false,
@@ -70,14 +91,14 @@ export const columns: ColumnDef<organisationData>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => router.push(`/organisation/edit/${userData.id}`) }
-                            
+                            onClick={() => router.push(`/organisation/edit/${userData.id}`)}
+
                         >
                             Edit
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            
-                            
+
+
                         >
                             Login
                         </DropdownMenuItem>
