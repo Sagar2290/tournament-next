@@ -22,11 +22,11 @@ export type organisationData = {
     createdAt: string
     name: string
     email: string
-    phone: number
+    phone: number 
     city: string
     status: boolean
 }
-
+ 
 
 export const columns: ColumnDef<organisationData>[] = [
 

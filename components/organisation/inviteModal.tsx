@@ -26,7 +26,7 @@ export default function InviteUserModal() {
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${process.env.PUBLIC_SITE_URL}/api/auth/sendMail`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/sendMail`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

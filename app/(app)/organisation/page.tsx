@@ -5,19 +5,21 @@ import InviteUserButton from "@/components/organisation/inviteModal"
 async function getData(): Promise<organisationData[]> {
   try {
     // Fetch data from your API endpoint
-    const response = await fetch(`${process.env.PUBLIC_SITE_URL}/api/organisation`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/organisation`, {
       method: 'GET',
       cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
+    
+    debugger
     const data = await response.json();
+    console.log("data",data)
     return data;
   } catch (error) {
     console.error("Failed to fetch organisation data:", error);

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ColumnDef} from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -15,85 +15,79 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from 'next/navigation';
+import { formatDateFull } from "@/utiles/helper";
 
 export type eventData = {
     id: number
-    name:string
-    startDate:Date
-    endDate:Date
-    dueDate:Date
-    location:string
-    organisationName:string
+    createdAt:string
+    name: string
+    // startDate:Date
+    // endDate:Date
+    // dueDate:Date
+    //location:string
+    organisationName: string
     email: string
+    status: 'upcoming' | 'ongoing' | 'completed';
 }
 
 
 export const columns: ColumnDef<eventData>[] = [
-
+{
+        accessorKey: "createdAt",
+        header: "Date",
+        cell: ({ row }) => <div>{formatDateFull(row.getValue("createdAt"))}</div>,
+    },
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Event Name",
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
-    {
-        accessorKey: "startDate",
-        header: "Start Date",
-        cell: ({ row }) => {
-            const startDate = row.getValue("startDate") as Date; // Cast to Date
-            const formattedDate = startDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            }); // Format as MM/DD/YYYY
-            return <div>{formattedDate}</div>;
-        },
-    },
-    {
-        accessorKey: "endDate",
-        header: "End Date",
-        cell: ({ row }) => {
-            const endDate = row.getValue("endDate") as Date; // Cast to Date
-            const formattedDate = endDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            }); // Format as MM/DD/YYYY
-            return <div>{formattedDate}</div>;
-        },
-    },
-    {
-        accessorKey: "dueDate",
-        header: "Due Date",
-        cell: ({ row }) => {
-            const dueDate = row.getValue("dueDate") as Date; // Cast to Date
-            const formattedDate = dueDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            }); // Format as MM/DD/YYYY
-            return <div>{formattedDate}</div>;
-        },
-    },
-    {
-        accessorKey: "location",
-        header:"Location",
-        cell: ({ row }) => <div className="lowercase">{row.getValue("location")}</div>,
-    },
-    {
-        accessorKey: "organisationName",
-        header: "Organisation Name",
-        cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("organisationName")}</div>
-        ),
-    },
+    // {
+    //     accessorKey: "startDate",
+    //     header: "Start Date",
+    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("startDate"))}</div>,
+    // },
+    // {
+    //     accessorKey: "endDate",
+    //     header: "End Date",
+    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("endDate"))}</div>,
+    // },
+    // {
+    //     accessorKey: "dueDate",
+    //     header: "Due Date",
+    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("dueDate"))}</div>,
+    // },
+    // {
+    //     accessorKey: "location",
+    //     header:"Location",
+    //     cell: ({ row }) => <div className="lowercase">{row.getValue("location")}</div>,
+    // },
 
     {
         accessorKey: "email",
-        header:"Email",
+        header: "Email",
         cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-    }, 
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const status = row.getValue("status") as "upcoming" | "ongoing" | "completed";
+          return (
+            <div className={`capitalize font-medium 
+              ${
+                status === "upcoming" ? "text-green-600" :
+                status === "ongoing" ? "text-yellow-600" :
+                "text-red-600"
+              }`}
+            >
+              {status}
+            </div>
+          );
+        },
+      },
     {
         id: "actions",
         enableHiding: false,
@@ -111,8 +105,8 @@ export const columns: ColumnDef<eventData>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => router.push(`/event-management/edit/${userData.id}`) }
-                            
+                            onClick={() => router.push(`/event-management/edit/${userData.id}`)}
+
                         >
                             Edit
                         </DropdownMenuItem>
