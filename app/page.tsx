@@ -13,6 +13,6 @@ export default async function Home() {
   const users = await prisma.user.findMany();
 
   return (
-    <Redirect to={'/dashboard'} />
+    <Redirect to={'/admin/dashboard'} />
   );
 }

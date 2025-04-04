@@ -26,7 +26,6 @@ export type organisationData = {
     city: string
     status: boolean
 }
- 
 
 export const columns: ColumnDef<organisationData>[] = [
 
@@ -79,7 +78,6 @@ export const columns: ColumnDef<organisationData>[] = [
         enableHiding: false,
         header: "Action",
         cell: ({ row }) => {
-            const userData = row.original
             const router = useRouter()
             return (
                 <DropdownMenu>
@@ -91,7 +89,7 @@ export const columns: ColumnDef<organisationData>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => router.push(`/organisation/edit/${userData.id}`)}
+                            onClick={() => router.push(`/admin/organisation/edit/${row.original.id}`)}
 
                         >
                             Edit

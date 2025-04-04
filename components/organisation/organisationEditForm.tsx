@@ -72,12 +72,11 @@ export default function OrganisationPage({ data }: { data?: organisationData }) 
   // Handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (organisationId) {
-      debugger
       setLoading(true);
 
       try {
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/organisation/${organisationId}`,
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/organisation/edit/${organisationId}`,
           {
             method: 'PUT',
             headers: {
@@ -89,7 +88,7 @@ export default function OrganisationPage({ data }: { data?: organisationData }) 
 
         if (response.ok) {
           data = await response.json();
-          setLoading(true);
+          setLoading(false);
         } else {
           throw new Error('Failed to fetch organizer');
         }
@@ -105,14 +104,13 @@ export default function OrganisationPage({ data }: { data?: organisationData }) 
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/organisation">Organisation</Link>
+              <Link href="/admin/organisation">Organisation</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-          <BreadcrumbPage>Edit</BreadcrumbPage>
+            <BreadcrumbPage>Edit</BreadcrumbPage>
           </BreadcrumbItem>
-         
         </BreadcrumbList>
       </Breadcrumb>
       <Form {...form}>

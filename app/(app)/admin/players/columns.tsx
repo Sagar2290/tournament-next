@@ -17,83 +17,67 @@ import {
 import { useRouter } from 'next/navigation';
 import { formatDateFull } from "@/utiles/helper";
 
-export type eventData = {
+export type playersData = {
     id: number
-    createdAt:string
+    createdAt: string
     name: string
-    // startDate:Date
-    // endDate:Date
-    // dueDate:Date
-    //location:string
-    organisationName: string
     email: string
-    status: 'upcoming' | 'ongoing' | 'completed';
+    phone: number 
+    city: string
+    status: boolean
 }
 
+export const columns: ColumnDef<playersData>[] = [
 
-export const columns: ColumnDef<eventData>[] = [
-{
+    {
         accessorKey: "createdAt",
         header: "Date",
         cell: ({ row }) => <div>{formatDateFull(row.getValue("createdAt"))}</div>,
     },
     {
         accessorKey: "name",
-        header: "Event Name",
+        header: "Name",
         cell: ({ row }) => (
             <div className="capitalize">{row.getValue("name")}</div>
         ),
     },
-    // {
-    //     accessorKey: "startDate",
-    //     header: "Start Date",
-    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("startDate"))}</div>,
-    // },
-    // {
-    //     accessorKey: "endDate",
-    //     header: "End Date",
-    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("endDate"))}</div>,
-    // },
-    // {
-    //     accessorKey: "dueDate",
-    //     header: "Due Date",
-    //     cell: ({ row }) => <div>{formatDateFull(row.getValue("dueDate"))}</div>,
-    // },
-    // {
-    //     accessorKey: "location",
-    //     header:"Location",
-    //     cell: ({ row }) => <div className="lowercase">{row.getValue("location")}</div>,
-    // },
-
     {
         accessorKey: "email",
         header: "Email",
         cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
     },
     {
-        accessorKey: "status",
+        accessorKey: "phone",
+        header: "Phone",
+        cell: ({ row }) => <div className="lowercase">{row.getValue("phone")}</div>,
+    },
+    {
+        accessorKey: "city",
+        header: "City",
+        cell: ({ row }) => <div className="lowercase">{row.getValue("city")}</div>,
+    },
+    {
+        accessorKey: "isActive",
         header: "Status",
-        cell: ({ row }) => {
-          const status = row.getValue("status") as "upcoming" | "ongoing" | "completed";
-          return (
-            <div className={`capitalize font-medium 
-              ${
-                status === "upcoming" ? "text-green-600" :
-                status === "ongoing" ? "text-yellow-600" :
-                "text-red-600"
-              }`}
-            >
-              {status}
+        cell: ({ row }) => (
+            <div className="flex items-center gap-2">
+                {row.getValue("isActive") ? (
+                    <>
+                        <span className="h-4 w-4 text-green-500">Active</span>
+                    </>
+                ) : (
+                    <>
+                        <span className="h-4 w-4 text-red-500">Inactive</span>
+                    </>
+                )}
             </div>
-          );
-        },
-      },
+        ),
+    },
     {
         id: "actions",
         enableHiding: false,
         header: "Action",
         cell: ({ row }) => {
-            const userData = row.original
             const router = useRouter()
             return (
                 <DropdownMenu>
@@ -105,8 +89,7 @@ export const columns: ColumnDef<eventData>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => router.push(`/event-management/edit/${userData.id}`)}
-
+                            onClick={() => router.push(`/admin/organisation/edit/${row.original.id}`)}
                         >
                             Edit
                         </DropdownMenuItem>

@@ -27,7 +27,7 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/dashboard",
+      url: "/admin/dashboard",
       // items: [
       //   {
       //     title: "Installation",
@@ -41,11 +41,15 @@ const data = {
     },
     {
       title: "Organisation",
-      url: "/organisation",
+      url: "/admin/organisation",
     },
     {
       title: "Event Management",
-      url: "/event-management",
+      url: "/admin/event-management",
+    },
+    {
+      title: "Players",
+      url: "/admin/players",
     },
   ],
 }
